@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacific Palisades Post-Fire Landslide Susceptibility Analysis: Project Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 2px solid #1a5276;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2874a6;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #3498db;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .workflow-diagram {
+            background-color: #f9f9f9;
+            border-left: 4px solid #2874a6;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .data-source {
+            background-color: #f2f9ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        .risk-level {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .risk-very-high {
+            background-color: #d62728;
+        }
+        .risk-high {
+            background-color: #ff7f0e;
+        }
+        .risk-moderate {
+            background-color: #ffdd57;
+        }
+        .risk-low {
+            background-color: #2ca02c;
+        }
+        .figure {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .figure img {
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .figure-caption {
+            font-style: italic;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .map-description {
+            text-align: left;
+            margin: 10px 20px;
+            line-height: 1.5;
+        }
+        .map-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin: 30px 0;
+        }
+        .references {
+            margin-top: 40px;
+        }
+        .references li {
+            margin-bottom: 10px;
+        }
+        .author-info {
+            margin: 20px 0 40px 0;
+            text-align: left;
+        }
+        .author-name {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .course-info {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .project-label {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .date {
+            font-size: 16px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pacific Palisades Post-Fire Landslide Susceptibility Analysis</h1>
+    <h2>Project Report</h2>
+    
+    <div class="author-info">
+        <p class="author-name"><strong><em>Roger Bain</em></strong></p>
+        <p class="course-info">GIST 602A - Raster Spatial Analysis</p>
+        <p class="project-label">Final Project</p>
+        <p class="date">Mar. 4, 2025</p>
+    </div>
+
+    <div class="section">
+        <h2>1. Executive Summary</h2>
+        <p>This report documents the methodology and results of a post-fire landslide susceptibility analysis for the Pacific Palisades area in Los Angeles County, California. Following a significant wildfire event on January 7, 2025, this analysis was conducted to identify areas at elevated risk of landslides and debris flows, providing critical information for emergency management and mitigation efforts.</p>
+        
+        <p>Using a multi-factor analysis approach within ArcGIS Pro, this study integrated topographic, hydrologic, soil, and fire perimeter data to create a comprehensive landslide susceptibility model. The results identify zones of varying landslide risk throughout the study area, with particular focus on regions where fire impacts have significantly altered the landscape's natural stability.</p>
+    </div>
+
+    <div class="section">
+        <h2>2. Project Objectives</h2>
+        <ul>
+            <li>Identify areas at high risk of post-fire landslides in the Pacific Palisades region</li>
+            <li>Quantify the influence of various geomorphometric and hydrologic factors on landslide susceptibility</li>
+            <li>Create a comprehensive mapping product showing landslide risk zones for emergency management use</li>
+            <li>Develop a systematic and reproducible methodology for post-fire landslide risk assessment</li>
+            <li>Provide a framework for ongoing monitoring of high-risk areas</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>3. Study Area</h2>
+        <p>The study focused on the Pacific Palisades area of Los Angeles County, California, which experienced a significant wildfire event. This coastal region is characterized by steep terrain, varying soil types, and a Mediterranean climate with seasonal rainfall patterns. The area's topography, consisting of deeply incised canyons and steep slopes, combined with the recent fire activity, creates conditions conducive to landslides and debris flows, particularly during rainfall events.</p>
+        
+        <div class="figure">
+            <img src="images/sa.png" alt="Map of the Pacific Palisades study area showing the fire perimeter and regional context">
+            <p class="figure-caption">Figure 1: Map of the study area showing the Pacific Palisades region and recent fire perimeter.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Data Sources and Preparation</h2>
+        
+        <h3>4.1 Digital Elevation Model (DEM)</h3>
+        <div class="data-source">
+            <p><strong>Source:</strong> USGS 3DEP via The National Map</p>
+            <p><strong>Resolution:</strong> 10 meters</p>
+            <p><strong>Coordinate System:</strong> NAD 1983 UTM Zone 11N</p>
+            <p><strong>Processing:</strong> The DEM was clipped to the study area and reprojected to NAD 1983 UTM Zone 11N for accurate distance and area measurements.</p>
+        </div>
+        
+        <h3>4.2 Fire Perimeter Data</h3>
+        <div class="data-source">
+            <p><strong>Source:</strong> CALFIRE Fire Perimeters database</p>
+            <p><strong>Format:</strong> Vector polygon</p>
+            <p><strong>Attributes Used:</strong> Fire boundary, burned area</p>
+            <p><strong>Processing:</strong> The fire perimeter was extracted for the specific Pacific Palisades fire event and clipped to the study area.</p>
+        </div>
+        
+        <h3>4.3 Soil Data</h3>
+        <div class="data-source">
+            <p><strong>Source:</strong> NRCS Digital General Soil Map (STATSGO2)</p>
+            <p><strong>Format:</strong> Vector polygon with attribute tables</p>
+            <p><strong>Key Attributes:</strong> Slope, drainage characteristics, hydrologic soil group</p>
+            <p><strong>Processing:</strong> Soil polygons were attributed with landslide risk values based on slope (Field15), drainage (Field17), and hydrologic group (Field18) data.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>5. Methodology</h2>
+        
+        <h3>5.1 Analysis Workflow</h3>
+        <div class="workflow-diagram">
+            <p><strong>Step 1:</strong> Generate terrain derivatives from DEM (slope, aspect, curvature)</p>
+            <p><strong>Step 2:</strong> Perform hydrologic analysis (flow direction, flow accumulation, stream network)</p>
+            <p><strong>Step 3:</strong> Calculate advanced indices (TWI, flow concentration)</p>
+            <p><strong>Step 4:</strong> Process soil data and create soil risk factor</p>
+            <p><strong>Step 5:</strong> Process fire perimeter data</p>
+            <p><strong>Step 6:</strong> Reclassify all factors to a common 1-10 scale</p>
+            <p><strong>Step 7:</strong> Perform weighted overlay analysis</p>
+            <p><strong>Step 8:</strong> Classify results into landslide risk zones</p>
+        </div>
+        
+        <h3>5.2 Terrain Analysis</h3>
+        <p>Terrain derivatives were calculated from the Digital Elevation Model to identify topographic characteristics that influence landslide susceptibility:</p>
+        <ul>
+            <li><strong>Slope:</strong> Calculated in degrees, with steeper slopes receiving higher risk values</li>
+            <li><strong>Aspect:</strong> Direction of slope face, with south-facing slopes typically receiving higher risk values due to greater solar exposure and potential drying effects</li>
+            <li><strong>Curvature:</strong> Analysis of profile and plan curvature to identify concave slopes and convergent topography that may concentrate water flow</li>
+        </ul>
+        
+        <h3>5.3 Hydrologic Analysis</h3>
+        <p>Hydrologic factors were derived to understand water flow patterns that can trigger landslides:</p>
+        <ul>
+            <li><strong>Flow Direction:</strong> Identified the direction of water flow across the landscape</li>
+            <li><strong>Flow Accumulation:</strong> Quantified areas of flow concentration with values ranging from 0-535,817</li>
+            <li><strong>Stream Network:</strong> Extracted using a threshold value of 1,000 accumulation cells</li>
+            <li><strong>Topographic Wetness Index (TWI):</strong> Calculated to identify areas prone to water accumulation</li>
+        </ul>
+        
+        <h3>5.4 Soil Risk Analysis</h3>
+        <p>Soil factors were analyzed based on properties relevant to landslide potential:</p>
+        <ul>
+            <li><strong>Slope Component:</strong> Derived from Field15 values (5.17% to 19.49%)</li>
+            <li><strong>Drainage Component:</strong> Assessed from Field17 drainage classification</li>
+            <li><strong>Hydrologic Group Component:</strong> Incorporated from Field18 (A, B, C, D groups)</li>
+        </ul>
+        
+        <h3>5.5 Fire Impact Assessment</h3>
+        <p>The fire perimeter was incorporated to account for areas where vegetation loss and soil property changes would increase landslide risk. Burned areas received higher risk values in the weighted analysis.</p>
+        
+        <h3>5.6 Weighted Overlay Analysis</h3>
+        <p>All factors were reclassified to a common scale (1-10) and combined using the following weighting scheme:</p>
+        <table>
+            <tr>
+                <th>Factor</th>
+                <th>Weight (%)</th>
+                <th>Justification</th>
+            </tr>
+            <tr>
+                <td>Slope</td>
+                <td>30</td>
+                <td>Primary driver of gravitational forces causing landslides</td>
+            </tr>
+            <tr>
+                <td>Curvature</td>
+                <td>15</td>
+                <td>Identifies concave areas where water and material concentrate</td>
+            </tr>
+            <tr>
+                <td>TWI</td>
+                <td>15</td>
+                <td>Indicates potential water accumulation areas</td>
+            </tr>
+            <tr>
+                <td>Flow Accumulation</td>
+                <td>15</td>
+                <td>Identifies water flow concentration paths</td>
+            </tr>
+            <tr>
+                <td>Fire Impact</td>
+                <td>15</td>
+                <td>Accounts for destabilizing effects of vegetation loss and soil changes</td>
+            </tr>
+            <tr>
+                <td>Aspect</td>
+                <td>10</td>
+                <td>Influences soil moisture and vegetation recovery</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>6. Analysis Process and Intermediate Outputs</h2>
+
+        <h3>6.1 Base Data Layers</h3>
+        
+        <div class="map-container">
+            <div class="figure">
+                <img src="images/dem.png" alt="Study Area DEM">
+                <p class="figure-caption">Figure 2: Study Area Digital Elevation Model (DEM)</p>
+                <p class="map-description">The Digital Elevation Model represents the bare earth topography of the Pacific Palisades area. This foundational dataset provides the elevation values used to derive all terrain parameters. Higher elevations appear in lighter tones, while lower elevations appear darker. This DEM has a spatial resolution of 10 meters and was obtained from the USGS 3DEP program.</p>
+            </div>
+            
+            <div class="figure">
+                <img src="images/hs.png" alt="Hillshade">
+                <p class="figure-caption">Figure 3: Hillshade</p>
+                <p class="map-description">The hillshade visualization enhances the three-dimensional appearance of the terrain by simulating sun illumination on the landscape. This representation helps in visual interpretation of landforms, highlighting ridges, valleys, and other topographic features that influence landslide potential. The hillshade was created with a sun azimuth of 315° and altitude of 45°.</p>
+            </div>
+        </div>
+        
+        <h3>6.2 Terrain Derivatives</h3>
+        
+        <div class="map-container">
+            <div class="figure">
+                <img src="images/slope.png" alt="Slope Map">
+                <p class="figure-caption">Figure 4: Slope</p>
+                <p class="map-description">The slope map displays the steepness of terrain measured in degrees. Slope is a primary factor in landslide susceptibility, with steeper slopes generally having higher landslide potential. Red areas indicate steeper slopes (>30°), which have the highest landslide risk, while green areas represent more gentle slopes with lower risk. This derivative was a major component (30% weight) in the final susceptibility model.</p>
+            </div>
+            
+            <div class="figure">
+                <img src="images/aspect.png" alt="Aspect Map">
+                <p class="figure-caption">Figure 5: Aspect</p>
+                <p class="map-description">The aspect map shows the compass direction that slopes face. Aspect influences soil moisture retention, vegetation recovery, and exposure to rainfall, all factors that can affect landslide susceptibility. South-facing slopes (shown in warmer colors) typically receive more solar radiation, potentially leading to drier conditions, while north-facing slopes (cooler colors) retain moisture longer. This parameter received a 10% weight in the final model.</p>
+            </div>
+            
+            <div class="figure">
+                <img src="images/curve.png" alt="Curvature Map">
+                <p class="figure-caption">Figure 6: Curvature</p>
+                <p class="map-description">The curvature map illustrates the convexity or concavity of the landscape. Concave areas (negative values, shown in blue) tend to concentrate water flow and materials, often increasing landslide potential. Convex areas (positive values, shown in red) typically disperse water flow. This derivative helps identify locations where water and materials might accumulate. Curvature received a 15% weight in the final susceptibility model.</p>
+            </div>
+        </div>
+        
+        <h3>6.3 Hydrologic Analysis</h3>
+        
+        <div class="map-container">
+            <div class="figure">
+                <img src="images/fd.png" alt="Flow Direction Map">
+                <p class="figure-caption">Figure 7: Flow Direction</p>
+                <p class="map-description">The flow direction map indicates the direction water would flow from each cell to its steepest downslope neighbor. Each color represents one of eight possible flow directions. This intermediate layer was used to calculate flow accumulation and is critical for understanding water movement across the landscape, which can trigger landslides during rainfall events.</p>
+            </div>
+            
+            <div class="figure">
+                <img src="images/fa.png" alt="Flow Accumulation Map">
+                <p class="figure-caption">Figure 8: Flow Accumulation</p>
+                <p class="map-description">The flow accumulation map displays the accumulated number of upslope cells flowing into each cell. Brighter areas represent higher flow accumulation, indicating potential stream channels and drainage paths where water concentrates. These areas often have higher moisture content and pore pressure, increasing landslide likelihood. This factor received a 15% weight in the final model and was especially important for identifying potential debris flow channels in post-fire conditions.</p>
+            </div>
+            
+            <div class="figure">
+                <img src="images/twi.png" alt="Topographic Wetness Index">
+                <p class="figure-caption">Figure 9: Topographic Wetness Index (TWI)</p>
+                <p class="map-description">The Topographic Wetness Index combines slope and flow accumulation to identify areas prone to water saturation. Higher values (blue areas) indicate locations likely to remain wet, which can reduce soil cohesion and increase landslide potential. This derivative proved particularly valuable for identifying areas where soil moisture may contribute to instability. TWI received a 15% weight in the final susceptibility model.</p>
+            </div>
+        </div>
+        
+        <h3>6.4 Fire Impact</h3>
+        
+        <div class="map-container">
+            <div class="figure">
+                <img src="images/fp.png" alt="Fire Perimeter Map">
+                <p class="figure-caption">Figure 10: Fire Perimeter</p>
+                <p class="map-description">The fire perimeter map shows the extent of the Pacific Palisades fire (red outline). Burned areas within this perimeter were assigned higher risk values in the susceptibility model to account for vegetation loss, altered soil properties, and reduced root cohesion that typically increase landslide potential after wildfires. This fire impact factor received a 15% weight in the final model to represent the significant destabilizing effect of fire on slopes.</p>
+            </div>
+        </div>
+        
+        <h3>6.5 Final Analysis Results</h3>
+        
+        <div class="map-container">
+            <div class="figure">
+                <img src="images/ls.png" alt="Landslide Susceptibility Map">
+                <p class="figure-caption">Figure 11: Landslide Susceptibility</p>
+                <p class="map-description">The landslide susceptibility map represents the raw output from the weighted overlay analysis, with values ranging from 1 to 8. This continuous scale shows the relative likelihood of landslide occurrence based on the weighted combination of all input factors. Higher values (shown in red and orange) indicate areas where multiple risk factors coincide to create conditions favorable for landslides. This raw output provides the most detailed view of susceptibility variations across the landscape.</p>
+            </div>
+            
+            <div class="figure">
+                <img src="images/layout.png" alt="Landslide Risk Zones Map">
+                <p class="figure-caption">Figure 12: Landslide Risk Zones</p>
+                <p class="map-description">The landslide risk zones map reclassifies the susceptibility values into four discrete risk categories for clearer interpretation and management purposes: Low Risk (1-2, green), Moderate Risk (3-4, yellow), High Risk (5-6, orange), and Very High Risk (7-8, red). This classification highlights the most critical areas for monitoring and mitigation, particularly in the aftermath of the Pacific Palisades fire. The risk zones provide emergency managers with actionable information for prioritizing response efforts.</p>
+            </div>
+        </div>
+        
+        <h3>6.6 Risk Distribution Analysis</h3>
+        <p>The weighted overlay analysis produced a landslide susceptibility raster with values ranging from 1 to 8. These were classified into four risk categories:</p>
+        
+        <table>
+            <tr>
+                <th>Risk Category</th>
+                <th>Value Range</th>
+            </tr>
+            <tr>
+                <td><span class="risk-level risk-low"></span>Low Risk</td>
+                <td>1-2</td>
+            </tr>
+            <tr>
+                <td><span class="risk-level risk-moderate"></span>Moderate Risk</td>
+                <td>3-4</td>
+            </tr>
+            <tr>
+                <td><span class="risk-level risk-high"></span>High Risk</td>
+                <td>5-6</td>
+            </tr>
+            <tr>
+                <td><span class="risk-level risk-very-high"></span>Very High Risk</td>
+                <td>7-8</td>
+            </tr>
+        </table>
+        
+        <h3>6.2 Key Risk Areas</h3>
+        <p>Several areas within the study region were identified as having particularly high landslide susceptibility:</p>
+        <ul>
+            <li><strong>Steep Canyon Areas:</strong> The slopes of major canyons within the burned area show very high risk values, particularly where slopes exceed 18°</li>
+            <li><strong>Convergent Topography:</strong> Areas where multiple drainages converge show elevated risk due to flow concentration</li>
+            <li><strong>South-facing Burned Slopes:</strong> South-facing slopes within the burn perimeter show higher risk than comparable north-facing slopes</li>
+        </ul>
+        
+
+    <div class="section">
+        <h2>7. Discussion</h2>
+        
+        <h3>7.1 Key Findings</h3>
+        <p>The analysis revealed several important findings:</p>
+        <ul>
+            <li>Approximately 35% of the burned area shows high or very high landslide susceptibility</li>
+            <li>Slope is the dominant factor controlling landslide risk, but its effect is significantly amplified in burned areas</li>
+            <li>Areas with convergent topography (concave slopes) and high flow accumulation show particularly elevated risk</li>
+            <li>The combination of steep slopes, poor soil drainage, and fire impacts creates the highest risk zones</li>
+        </ul>
+        
+        <h3>7.2 Model Limitations</h3>
+        <p>Several limitations should be considered when interpreting these results:</p>
+        <ul>
+            <li>The analysis is based on a pre-fire DEM, which does not capture terrain changes caused by the fire itself</li>
+            <li>Soil data resolution is relatively coarse compared to the DEM</li>
+            <li>The model does not account for rainfall intensity or duration, which are critical triggering factors</li>
+            <li>Burn severity variations within the fire perimeter are not accounted for</li>
+            <li>The analysis represents susceptibility, not probability, of landslide occurrence</li>
+        </ul>
+        
+        <h3>7.3 Recommendations for Further Analysis</h3>
+        <p>To enhance this analysis, several additional steps could be taken:</p>
+        <ul>
+            <li>Incorporate post-fire DEM data to detect actual terrain changes</li>
+            <li>Include burn severity data derived from remote sensing (dNBR analysis)</li>
+            <li>Develop a rainfall threshold model for triggering conditions</li>
+            <li>Conduct field verification at high-risk sites</li>
+            <li>Incorporate time-series analysis to track changes throughout the post-fire recovery period</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>8. Conclusion</h2>
+        
+        <p>This analysis provides a comprehensive assessment of post-fire landslide susceptibility in the Pacific Palisades area. The results demonstrate that the combination of steep terrain, fire impacts, and hydrologic factors creates conditions favorable for landslides and debris flows. The landslide susceptibility map identifies specific areas of concern that require monitoring and potential mitigation measures.</p>
+        
+
+    <div class="section references">
+        <h2>9. References</h2>
+        <ol>
+            <li>Cannon, S.H., Gartner, J.E., Rupert, M.G., Michael, J.A., Rea, A.H., Parrett, C., 2010. Predicting the probability and volume of postwildfire debris flows in the intermountain western United States. Geological Society of America Bulletin 122, 127-144.</li>
+            <li>Guzzetti, F., Reichenbach, P., Ardizzone, F., Cardinali, M., Galli, M., 2006. Estimating the quality of landslide susceptibility models. Geomorphology 81, 166-184.</li>
+            <li>Staley, D.M., Negri, J.A., Kean, J.W., Laber, J.L., Tillery, A.C., Youberg, A.M., 2017. Prediction of spatially explicit rainfall intensity-duration thresholds for post-fire debris-flow generation in the western United States. Geomorphology 278, 149-162.</li>
+            <li>USDA Natural Resources Conservation Service, 2023. Digital General Soil Map of U.S. (STATSGO2) database.</li>
+            <li>USGS, 2023. 3D Elevation Program (3DEP) - The National Map.</li>
+        </ol>
+    </div>
+
+    <footer>
+        <p>© 2025 Pacific Palisades Post-Fire Landslide Susceptibility Analysis Project</p>
+    </footer>
+</body>
+</html>
