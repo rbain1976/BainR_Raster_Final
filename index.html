@@ -164,7 +164,7 @@
         <p>The study focused on the Pacific Palisades area of Los Angeles County, California, which experienced a significant wildfire event. This coastal region is characterized by steep terrain, varying soil types, and a Mediterranean climate with seasonal rainfall patterns. The area's topography, consisting of deeply incised canyons and steep slopes, combined with the recent fire activity, creates conditions conducive to landslides and debris flows, particularly during rainfall events.</p>
         
         <div class="figure">
-            <img src="/images/sa.png" alt="Map of the Pacific Palisades study area showing the fire perimeter and regional context">
+            <img src="images/sa.png" alt="Map of the Pacific Palisades study area showing the fire perimeter and regional context">
             <p class="figure-caption">Figure 1: Map of the study area showing the Pacific Palisades region and recent fire perimeter.</p>
         </div>
     </div>
@@ -288,13 +288,13 @@
         
         <div class="map-container">
             <div class="figure">
-               <img src="/images/dem.png" alt="Study Area DEM">
+               <img src="images/dem.png" alt="Study Area DEM">
                 <p class="figure-caption">Figure 2: Study Area Digital Elevation Model (DEM)</p>
                 <p class="map-description">The Digital Elevation Model represents the bare earth topography of the Pacific Palisades area. This foundational dataset provides the elevation values used to derive all terrain parameters. Higher elevations appear in lighter tones, while lower elevations appear darker. This DEM has a spatial resolution of 10 meters and was obtained from the USGS 3DEP program.</p>
             </div>
             
             <div class="figure">
-                <img src="/images/hs.png" alt="Hillshade">
+                <img src="images/hs.png" alt="Hillshade">
                 <p class="figure-caption">Figure 3: Hillshade</p>
                 <p class="map-description">The hillshade visualization enhances the three-dimensional appearance of the terrain by simulating sun illumination on the landscape. This representation helps in visual interpretation of landforms, highlighting ridges, valleys, and other topographic features that influence landslide potential. The hillshade was created with a sun azimuth of 315° and altitude of 45°.</p>
             </div>
@@ -304,19 +304,19 @@
         
         <div class="map-container">
             <div class="figure">
-                <img src="/images/slope.png" alt="Slope Map">
+                <img src="images/slope.png" alt="Slope Map">
                 <p class="figure-caption">Figure 4: Slope</p>
                 <p class="map-description">The slope map displays the steepness of terrain measured in degrees. Slope is a primary factor in landslide susceptibility, with steeper slopes generally having higher landslide potential. Red areas indicate steeper slopes (>30°), which have the highest landslide risk, while green areas represent more gentle slopes with lower risk. This derivative was a major component (30% weight) in the final susceptibility model.</p>
             </div>
             
             <div class="figure">
-                <img src="/images/aspect.png" alt="Aspect Map">
+                <img src="images/aspect.png" alt="Aspect Map">
                 <p class="figure-caption">Figure 5: Aspect</p>
                 <p class="map-description">The aspect map shows the compass direction that slopes face. Aspect influences soil moisture retention, vegetation recovery, and exposure to rainfall, all factors that can affect landslide susceptibility. South-facing slopes (shown in warmer colors) typically receive more solar radiation, potentially leading to drier conditions, while north-facing slopes (cooler colors) retain moisture longer. This parameter received a 10% weight in the final model.</p>
             </div>
             
             <div class="figure">
-                <img src="/images/curve.png" alt="Curvature Map">
+                <img src="images/curve.png" alt="Curvature Map">
                 <p class="figure-caption">Figure 6: Curvature</p>
                 <p class="map-description">The curvature map illustrates the convexity or concavity of the landscape. Concave areas (negative values, shown in blue) tend to concentrate water flow and materials, often increasing landslide potential. Convex areas (positive values, shown in red) typically disperse water flow. This derivative helps identify locations where water and materials might accumulate. Curvature received a 15% weight in the final susceptibility model.</p>
             </div>
@@ -326,19 +326,19 @@
         
         <div class="map-container">
             <div class="figure">
-                <img src="/images/fd.png" alt="Flow Direction Map">
+                <img src="images/fd.png" alt="Flow Direction Map">
                 <p class="figure-caption">Figure 7: Flow Direction</p>
                 <p class="map-description">The flow direction map indicates the direction water would flow from each cell to its steepest downslope neighbor. Each color represents one of eight possible flow directions. This intermediate layer was used to calculate flow accumulation and is critical for understanding water movement across the landscape, which can trigger landslides during rainfall events.</p>
             </div>
             
             <div class="figure">
-                <img src="/images/fa.png" alt="Flow Accumulation Map">
+                <img src="images/fa.png" alt="Flow Accumulation Map">
                 <p class="figure-caption">Figure 8: Flow Accumulation</p>
                 <p class="map-description">The flow accumulation map displays the accumulated number of upslope cells flowing into each cell. Brighter areas represent higher flow accumulation, indicating potential stream channels and drainage paths where water concentrates. These areas often have higher moisture content and pore pressure, increasing landslide likelihood. This factor received a 15% weight in the final model and was especially important for identifying potential debris flow channels in post-fire conditions.</p>
             </div>
             
             <div class="figure">
-                <img src="/images/twi.png" alt="Topographic Wetness Index">
+                <img src="images/twi.png" alt="Topographic Wetness Index">
                 <p class="figure-caption">Figure 9: Topographic Wetness Index (TWI)</p>
                 <p class="map-description">The Topographic Wetness Index combines slope and flow accumulation to identify areas prone to water saturation. Higher values (blue areas) indicate locations likely to remain wet, which can reduce soil cohesion and increase landslide potential. This derivative proved particularly valuable for identifying areas where soil moisture may contribute to instability. TWI received a 15% weight in the final susceptibility model.</p>
             </div>
@@ -348,7 +348,7 @@
         
         <div class="map-container">
             <div class="figure">
-                <img src="/images/fp.png" alt="Fire Perimeter Map">
+                <img src="images/fp.png" alt="Fire Perimeter Map">
                 <p class="figure-caption">Figure 10: Fire Perimeter</p>
                 <p class="map-description">The fire perimeter map shows the extent of the Pacific Palisades fire (red outline). Burned areas within this perimeter were assigned higher risk values in the susceptibility model to account for vegetation loss, altered soil properties, and reduced root cohesion that typically increase landslide potential after wildfires. This fire impact factor received a 15% weight in the final model to represent the significant destabilizing effect of fire on slopes.</p>
             </div>
@@ -358,13 +358,13 @@
         
         <div class="map-container">
             <div class="figure">
-                <img src="/images/ls.png" alt="Landslide Susceptibility Map">
+                <img src="images/ls.png" alt="Landslide Susceptibility Map">
                 <p class="figure-caption">Figure 11: Landslide Susceptibility</p>
                 <p class="map-description">The landslide susceptibility map represents the raw output from the weighted overlay analysis, with values ranging from 1 to 8. This continuous scale shows the relative likelihood of landslide occurrence based on the weighted combination of all input factors. Higher values (shown in red and orange) indicate areas where multiple risk factors coincide to create conditions favorable for landslides. This raw output provides the most detailed view of susceptibility variations across the landscape.</p>
             </div>
             
             <div class="figure">
-                <img src="/images/layout.png" alt="Landslide Risk Zones Map">
+                <img src="images/layout.png" alt="Landslide Risk Zones Map">
                 <p class="figure-caption">Figure 12: Landslide Risk Zones</p>
                 <p class="map-description">The landslide risk zones map reclassifies the susceptibility values into four discrete risk categories for clearer interpretation and management purposes: Low Risk (1-2, green), Moderate Risk (3-4, yellow), High Risk (5-6, orange), and Very High Risk (7-8, red). This classification highlights the most critical areas for monitoring and mitigation, particularly in the aftermath of the Pacific Palisades fire. The risk zones provide emergency managers with actionable information for prioritizing response efforts.</p>
             </div>
@@ -420,7 +420,7 @@
     </ol>
     
     <div class="figure">
-        <img src="/images/ws.png" alt="Watershed Delineation Map">
+        <img src="images/ws.png" alt="Watershed Delineation Map">
         <p class="figure-caption">Figure 13: Delineated Watersheds overlayed on Burned Area in the Pacific Palisades Study Area</p>
         <p class="map-description">The map shows the delineated watersheds within the study area. Each watershed represents a distinct drainage basin where water and potentially debris would flow toward a common outlet point. These natural hydrologic units provide a meaningful framework for assessing post-fire landslide and debris flow hazards, as these processes typically follow drainage patterns.</p>
     </div>
